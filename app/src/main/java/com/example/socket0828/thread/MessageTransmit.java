@@ -82,7 +82,7 @@ public class MessageTransmit implements Runnable {
 //
 //            }
             datagramSocket = new DatagramSocket(60001);
-             addressToSend = InetAddress.getByName("192.168.1.121");
+             addressToSend = InetAddress.getByName("172.17.50.138");
         //    datagramSocket.setSoTimeout(5000);
 
             ByteArrayOutputStream byteout = new ByteArrayOutputStream();

@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.socket0828.thread.MessageTrans;
 import com.example.socket0828.thread.MessageTransmit;
 import com.example.socket0828.util.DateUtil;
 
@@ -25,6 +26,8 @@ public class SocketActivity extends AppCompatActivity implements OnClickListener
     private EditText et_socket;
     private static TextView tv_socket;
     private MessageTransmit mTransmit; // 声明一个消息传输对象
+    private MessageTrans messageTrans;
+    private MessageTrans.SendThread sendThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,10 @@ public class SocketActivity extends AppCompatActivity implements OnClickListener
         et_socket = findViewById(R.id.et_socket);
         tv_socket = findViewById(R.id.tv_socket);
         findViewById(R.id.btn_socket).setOnClickListener(this);
-        mTransmit = new MessageTransmit(); // 创建一个消息传输
-        new Thread(mTransmit).start(); // 启动消息传输线程
+        //mTransmit = new MessageTransmit(); // 创建一个消息传输
+        //new Thread(mTransmit).start(); // 启动消息传输线程
+        messageTrans = new MessageTrans();
+        new Thread(messageTrans).start();
     }
 
     @Override
@@ -45,9 +50,8 @@ public class SocketActivity extends AppCompatActivity implements OnClickListener
             msg.obj = et_socket.getText().toString(); // 消息内容
             Log.d(TAG, et_socket.getText().toString());
             // 通过消息线程的发送处理器，向后端发送消息
-            mTransmit.mSendHandler.sendMessage(msg);
-
-
+          //  mTransmit.mSendHandler.sendMessage(msg);
+            messageTrans.sendMsg(msg);
         }
     }
 
